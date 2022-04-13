@@ -14,5 +14,20 @@
 #   limitations under the License.
 
 ssh-keygen -t ed25519 -f ~/.ssh/ed25519 -N ""
-echo "Copy the line below into ~/.ssh/authorized_keys on target device:"
-echo "$(cat ~/.ssh/ed25519.pub)"
+public_key="$(cat ~/.ssh/ed25519.pub)"
+echo "
+
+Copy the line below into ~/.ssh/authorized_keys on target device:"
+echo $public_key
+echo "
+
+Alternatively, use this script with bash:"
+echo 'echo "'$public_key'" >> ~/.ssh/authorized_keys'
+echo "
+
+Or this script with powershell:"
+echo 'Set-Content -Path "~/.ssh/authorized_keys" -Value "'$public_key'"'
+echo "
+
+On a Windows machine for Administrator accout:"
+echo 'Set-Content -Path "${env:ProgramData}\ssh\administrators_authorized_keys" -Value "'$public_key'"'
